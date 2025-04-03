@@ -1,0 +1,66 @@
+Anh B-PERSON
+Kiên I-PERSON
+được O
+giao O
+hoàn B-TASK
+thành I-TASK
+dự B-TASK
+án I-TASK
+
+Chị B-PERSON
+Lan I-PERSON
+chuẩn B-TASK
+bị I-TASK
+bài B-TASK
+thuyết I-TASK
+
+05/04/2025 B-DATE
+
+Anh B-PERSON
+Tùng I-PERSON
+phụ O
+trách O
+kiểm B-TASK
+tra I-TASK
+chất B-TASK
+lượng I-TASK
+
+Chị B-PERSON
+Mai I-PERSON
+viết B-TASK
+biên B-TASK
+bản I-TASK
+
+06/04/2025 B-DATE
+
+Anh B-PERSON 
+Duy I-PERSON 
+được O 
+giao O 
+tổ B-TASK 
+chức I-TASK 
+cuộc B-TASK 
+họp I-TASK 
+
+Chị B-PERSON 
+Hương I-PERSON 
+thu B-TASK 
+thập I-TASK 
+dữ B-TASK 
+liệu I-TASK 
+
+07/04/2025 B-DATE 
+
+Anh B-PERSON 
+Long I-PERSON 
+phụ O 
+trách O 
+giám B-TASK 
+sát I-TASK 
+
+Chị B-PERSON 
+Ngân I-PERSON 
+chuẩn B-TASK 
+bị I-TASK 
+
+08/04/2025 B-DATE  

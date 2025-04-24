@@ -1,19 +1,23 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:client/services/token_service.dart'; // Import TokenService
 
-// Hàm lưu token
-Future<void> saveToken(String token) async {
-  final prefs = await SharedPreferences.getInstance();
-  await prefs.setString('auth_token', token);
-}
+// Provider cho TokenService
+final tokenServiceProvider = Provider<TokenService>((ref) => TokenService());
 
-// Hàm lấy token
-Future<String?> loadToken() async {
-  final prefs = await SharedPreferences.getInstance();
-  return prefs.getString('auth_token');
-}
-
-// Provider lấy token (FutureProvider)
+// Provider lấy access token
 final tokenProvider = FutureProvider<String?>((ref) async {
-  return await loadToken();
+  final tokenService = ref.watch(tokenServiceProvider);
+  return await tokenService.getAccessToken();
+});
+
+// Provider lấy refresh token (nếu cần)
+final refreshTokenProvider = FutureProvider<String?>((ref) async {
+  final tokenService = ref.watch(tokenServiceProvider);
+  return await tokenService.getRefreshToken();
+});
+
+// Provider lấy user data (nếu cần)
+final userDataProvider = FutureProvider<Map<String, dynamic>?>((ref) async {
+  final tokenService = ref.watch(tokenServiceProvider);
+  return await tokenService.getUser();
 });

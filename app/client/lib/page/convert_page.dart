@@ -3,6 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:super_drag_and_drop/super_drag_and_drop.dart';
 
+import '../models/project.dart';
+import '../models/task.dart';
+
 
 class MeetingMinutesDropScreen extends StatefulWidget {
   const MeetingMinutesDropScreen({super.key});
@@ -16,6 +19,31 @@ class _MeetingMinutesDropScreenState extends State<MeetingMinutesDropScreen> {
   String? _fileContent;
   List<String> _tasks = [];
 
+  List<Project> _projects = [
+    Project(
+      projectId: 1,
+      workspaceId: 1,
+      name: "Project 1",
+      description: "First project description",
+      status: "active",
+      createdBy: 1,
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+      taskGroups: [],
+    ),
+    Project(
+      projectId: 2,
+      workspaceId: 1,
+      name: "Project 2",
+      description: "Second project description",
+      status: "active",
+      createdBy: 1,
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+      taskGroups: [],
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,6 +51,7 @@ class _MeetingMinutesDropScreenState extends State<MeetingMinutesDropScreen> {
         title: const Text('Chuyển biên bản họp thành công việc'),
         backgroundColor: Colors.indigo,
         foregroundColor: Colors.white,
+        automaticallyImplyLeading: false,
       ),
       body: Padding(
         padding: const EdgeInsets.all(24),
@@ -147,9 +176,12 @@ class _MeetingMinutesDropScreenState extends State<MeetingMinutesDropScreen> {
                                 : ListView.separated(
                               itemCount: _tasks.length,
                               separatorBuilder: (_, __) => const Divider(),
-                              itemBuilder: (context, index) => ListTile(
-                                leading: const Icon(Icons.task),
-                                title: Text(_tasks[index]),
+                              itemBuilder: (context, index) => TextButton(
+                                onPressed: () => _showAddTaskDialog(context, _tasks[index]),
+                                child: ListTile(
+                                  leading: const Icon(Icons.task),
+                                  title: Text(_tasks[index]),
+                                ),
                               ),
                             ),
                           ),
@@ -167,14 +199,111 @@ class _MeetingMinutesDropScreenState extends State<MeetingMinutesDropScreen> {
 
   // Demo: tách các dòng bắt đầu bằng '-' hoặc 'Task:' thành công việc
   List<String> _extractTasksFromText(String text) {
-    final lines = text.split('\n');
-    return lines
-        .where((line) =>
-    line.trim().startsWith('-') ||
-        line.trim().toLowerCase().startsWith('task:') ||
-        line.trim().toLowerCase().startsWith('action item:'))
-        .map((line) => line.replaceFirst(RegExp(r'^(-|Task:|Action item:)'), '').trim())
-        .where((line) => line.isNotEmpty)
-        .toList();
+    // Trả về danh sách công việc demo
+    return [
+      'Hoàn thành báo cáo tài chính',
+      'Gửi email cho khách hàng',
+      'Lên kế hoạch họp nhóm',
+      'Cập nhật tiến độ dự án',
+      'Kiểm tra và phê duyệt tài liệu',
+    ];
   }
+
+  void _showAddTaskDialog(BuildContext context, String name, {int? projectId, String? status}) {
+    final TextEditingController nameController = TextEditingController();
+    final TextEditingController descController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Add New Task'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            DropdownButtonFormField<int>(
+              decoration: InputDecoration(labelText: 'Project'),
+              value: projectId,
+              items: _projects.map((project) => DropdownMenuItem(
+                value: project.projectId,
+                child: Text(project.name),
+              )).toList(),
+              onChanged: (value) {
+                projectId = value;
+              },
+            ),
+            SizedBox(height: 12),
+            DropdownButtonFormField<String>(
+              decoration: InputDecoration(labelText: 'Status'),
+              value: status,
+              items: ['to_do', 'in_progress', 'in_review', 'done'].map((s) => DropdownMenuItem(
+                value: s,
+                child: Text(s.toUpperCase().replaceAll('_', ' ')),
+              )).toList(),
+              onChanged: (value) {
+                status = value;
+              },
+            ),
+            SizedBox(height: 12),
+            TextField(
+              controller: nameController,
+              decoration: InputDecoration(labelText: name),
+            ),
+            SizedBox(height: 12),
+            TextField(
+              controller: descController,
+              decoration: InputDecoration(labelText: 'Description'),
+              maxLines: 3,
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              if (projectId != null && status != null && nameController.text.isNotEmpty) {
+                // Logic thêm task ở đây
+                final newTask = Task(
+                  taskId: DateTime.now().millisecondsSinceEpoch, // Tạm thời dùng timestamp làm ID
+                  projectId: projectId!,
+                  name: nameController.text,
+                  description: descController.text,
+                  status: status!,
+                  priority: 'medium',
+                  actualHours: 0,
+                  createdBy: 1,
+                  createdAt: DateTime.now(),
+                  updatedAt: DateTime.now(),
+                );
+
+                setState(() {
+                  // Tìm project cần thêm task
+                  final project = _projects.firstWhere((p) => p.projectId == projectId);
+
+                  // Tìm hoặc tạo task group phù hợp
+                  TaskGroup? group = project.taskGroups.firstWhere(
+                        (g) => g.status == status,
+                    orElse: () {
+                      final newGroup = TaskGroup(status: status!, tasks: []);
+                      project.taskGroups.add(newGroup);
+                      return newGroup;
+                    },
+                  );
+
+                  // Thêm task vào group
+                  group.tasks.add(newTask);
+                });
+
+                Navigator.pop(context);
+              }
+            },
+            child: Text('Add Task'),
+          ),
+        ],
+      ),
+    );
+  }
+
 }

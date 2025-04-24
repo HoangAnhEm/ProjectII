@@ -1,65 +1,50 @@
+import 'package:client/models/user.dart';
+
 class Workspace {
-  final int workspaceId;
+  final String id;
   final String name;
   final String? description;
   final bool isPublic;
   final DateTime createdAt;
   final DateTime updatedAt;
+  final List<User> members; // Thêm trường này
 
   Workspace({
-    required this.workspaceId,
+    required this.id,
     required this.name,
     this.description,
     required this.isPublic,
     required this.createdAt,
     required this.updatedAt,
+    required this.members, // Thêm vào constructor
   });
 
   factory Workspace.fromJson(Map<String, dynamic> json) {
     return Workspace(
-      workspaceId: json['workspace_id'],
+      id: json['id'],
       name: json['name'],
       description: json['description'],
       isPublic: json['is_public'] ?? false,
       createdAt: DateTime.parse(json['created_at']),
       updatedAt: DateTime.parse(json['updated_at']),
+      members: json['members'] != null
+          ? (json['members'] as List)
+          .map((m) => User.fromJson(m))
+          .toList()
+          : [],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'workspace_id': workspaceId,
+      'id': id,
       'name': name,
       'description': description,
       'is_public': isPublic,
       'created_at': createdAt.toIso8601String(),
       'updated_at': updatedAt.toIso8601String(),
+      'members': members.map((m) => m.toJson()).toList(),
     };
   }
 }
 
-class WorkspaceUser {
-  final int workspaceUserId;
-  final int workspaceId;
-  final int userId;
-  final String roleInWorkspace; // 'owner', 'admin', 'member', 'guest'
-  final DateTime joinedAt;
-
-  WorkspaceUser({
-    required this.workspaceUserId,
-    required this.workspaceId,
-    required this.userId,
-    required this.roleInWorkspace,
-    required this.joinedAt,
-  });
-
-  factory WorkspaceUser.fromJson(Map<String, dynamic> json) {
-    return WorkspaceUser(
-      workspaceUserId: json['workspace_user_id'],
-      workspaceId: json['workspace_id'],
-      userId: json['user_id'],
-      roleInWorkspace: json['role_in_workspace'],
-      joinedAt: DateTime.parse(json['joined_at']),
-    );
-  }
-}

@@ -1,3 +1,4 @@
+import 'package:client/models/user.dart';
 import 'package:client/providers/tokenProvider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/workspace.dart';
@@ -32,7 +33,7 @@ final workspaceProvider = FutureProvider.family<Workspace, int>((ref, workspaceI
 });
 
 // Workspace members provider
-final workspaceMembersProvider = FutureProvider.family<List<WorkspaceUser>, int>((ref, workspaceId) async {
+final workspaceMembersProvider = FutureProvider.family<List<User>, int>((ref, workspaceId) async {
   final workspaceService = ref.watch(workspaceServiceProvider);
   final tokenAsync = await ref.watch(tokenProvider.future);
 

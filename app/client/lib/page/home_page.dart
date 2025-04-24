@@ -1,13 +1,23 @@
 
 import 'package:client/layout/user_layout.dart';
+import 'package:client/services/token_service.dart';
+import 'package:client/services/workspace_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomePage extends StatefulWidget {
+import '../models/user.dart';
+import '../models/workspace.dart';
+import '../providers/workspace_provider.dart';
+
+class HomePage extends ConsumerStatefulWidget  {
   @override
-  _HomePageState createState() => _HomePageState();
+  ConsumerState<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
+class _HomePageState extends ConsumerState<HomePage> with SingleTickerProviderStateMixin {
+  final _workspaceService = WorkspaceService();
+  final _tokenService = TokenService();
+
   late TabController _tabController;
   final TextEditingController _searchController = TextEditingController();
 
@@ -47,7 +57,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               height: 100,
               child: ElevatedButton(
                 onPressed: () {
-                  // TODO: Xử lý tạo project mới
+                  _showAddWorkspaceDialog(context);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFF6F4FF2), // Tím gradient có thể dùng màu này
@@ -261,6 +271,124 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                   _buildWorkspaceTable(allWorkspaces),
                 ],
               ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showAddWorkspaceDialog(BuildContext context, {List<User>? allUsers}) {
+    final TextEditingController nameController = TextEditingController();
+    final TextEditingController descController = TextEditingController();
+    bool isPublic = false;
+    List<User> selectedMembers = [];
+
+    void handleCreate() async {
+      if (nameController.text.isNotEmpty) {
+        // Logic thêm workspace ở đây
+        // final newWorkspace = Workspace(
+        //   workspaceId: DateTime.now().millisecondsSinceEpoch, // tạm thời
+        //   name: nameController.text,
+        //   description: descController.text,
+        //   isPublic: isPublic,
+        //   members: selectedMembers,
+        //   createdAt: DateTime.now(),
+        //   updatedAt: DateTime.now(),
+        // );
+        final newWorkspace = {
+          'name': nameController.text,
+          'description': descController.text,
+          'is_public': isPublic,
+          'members': selectedMembers.map((m) => m.toJson()).toList(),
+        };
+        String? access_token = await _tokenService.getAccessToken();
+        if(access_token == null){
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Đăng nhập thất bại. Vui lòng thử lại.'))
+          );
+          Navigator.pop(context);
+          return;
+        }
+
+        _workspaceService.createWorkspace(access_token, newWorkspace);
+        ref.invalidate(userWorkspacesProvider);
+        Navigator.pop(context);
+
+        setState(() {
+          // _workspaces.add(newWorkspace);
+        });
+
+
+      }
+    }
+
+    showDialog(
+      context: context,
+      builder: (context) => StatefulBuilder(
+        builder: (context, setState) => AlertDialog(
+          title: Text('Add New Workspace'),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  controller: nameController,
+                  decoration: InputDecoration(labelText: 'Workspace Name'),
+                ),
+                SizedBox(height: 12),
+                TextField(
+                  controller: descController,
+                  decoration: InputDecoration(labelText: 'Description'),
+                  maxLines: 3,
+                ),
+                SizedBox(height: 12),
+                SwitchListTile(
+                  title: Text('Public Workspace'),
+                  value: isPublic,
+                  onChanged: (value) {
+                    setState(() {
+                      isPublic = value;
+                    });
+                  },
+                ),
+                if (allUsers != null && allUsers.isNotEmpty) ...[
+                  SizedBox(height: 12),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text('Members', style: TextStyle(fontWeight: FontWeight.bold)),
+                  ),
+                  Wrap(
+                    spacing: 6,
+                    children: allUsers.map((user) {
+                      final isSelected = selectedMembers.contains(user);
+                      return FilterChip(
+                        label: Text(user.username),
+                        selected: isSelected,
+                        onSelected: (selected) {
+                          setState(() {
+                            if (selected) {
+                              selectedMembers.add(user);
+                            } else {
+                              selectedMembers.remove(user);
+                            }
+                          });
+                        },
+                      );
+                    }).toList(),
+                  ),
+                ],
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () => handleCreate(),
+              child: Text('Add Workspace'),
             ),
           ],
         ),

@@ -4,9 +4,9 @@ import '../models/project.dart';
 import '../utils/api_constants.dart';
 
 class ProjectService {
-  final String baseUrl = 'http://localhost:3000/v1/project';
+  final String baseUrl = 'http://localhost:3000/v1/projects';
 
-  Future<List<Project>> getWorkspaceProjects(String token, int workspaceId) async {
+  Future<List<Project>> getWorkspaceProjects(String token, String workspaceId) async {
     final response = await http.get(
       Uri.parse('$baseUrl/workspaces/$workspaceId/projects'),
       headers: {
@@ -41,7 +41,7 @@ class ProjectService {
 
   Future<Project> createProject(String token, Map<String, dynamic> project) async {
     final response = await http.post(
-      Uri.parse('$baseUrl/projects'),
+      Uri.parse('$baseUrl'),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
@@ -50,7 +50,7 @@ class ProjectService {
     );
 
     if (response.statusCode == 201) {
-      return Project.fromJson(jsonDecode(response.body)['data']);
+      return Project.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Failed to create project: ${response.body}');
     }

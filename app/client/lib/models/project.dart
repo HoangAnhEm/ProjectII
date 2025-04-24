@@ -14,7 +14,7 @@ class Project {
   final DateTime updatedAt;
   final List<TaskGroup> taskGroups; // Nhóm task theo status để hiển thị UI
 
-  Project({
+    Project({
     required this.projectId,
     required this.workspaceId,
     required this.name,

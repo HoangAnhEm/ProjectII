@@ -1,7 +1,447 @@
-Ông O
-Nguyễn B-PER
-Văn I-PER
-A I-PER
-là O
-giám O
-đốc O
+đưa B-TASK
+ER3 I-TASK
+của I-TASK
+RHOM I-TASK
+vào I-TASK
+sản_phẩm I-TASK
+
+soạn B-TASK
+tài_liệu I-TASK
+về I-TASK
+việc I-TASK
+tạo I-TASK
+và I-TASK
+xóa I-TASK
+địa_chỉ I-TASK
+
+thêm B-TASK
+hỗ_trợ I-TASK
+kiểm_tra I-TASK
+yêu_cầu I-TASK
+so I-TASK
+với I-TASK
+giới_hạn I-TASK
+và I-TASK
+thiết_lập I-TASK
+trạng_thái I-TASK
+cho I-TASK
+địa_chỉ I-TASK
+
+thêm B-TASK
+hỗ_trợ I-TASK
+cho I-TASK
+các I-TASK
+chủ_đề I-TASK
+đồng_vị_trí I-TASK
+
+sử_dụng B-TASK
+statefulsets I-TASK
+cho I-TASK
+các I-TASK
+broker I-TASK
+
+triển_khai B-TASK
+giới_hạn I-TASK
+tài_nguyên I-TASK
+của I-TASK
+gói I-TASK
+cho I-TASK
+không_gian I-TASK
+địa_chỉ I-TASK
+
+lưu B-TASK
+lại I-TASK
+quyết_định I-TASK
+về I-TASK
+vị_trí I-TASK
+đặt I-TASK
+hàng_đợi I-TASK
+hoặc I-TASK
+chủ_đề I-TASK
+
+triển_khai B-TASK
+yêu_cầu I-TASK
+tài_nguyên I-TASK
+của I-TASK
+gói I-TASK
+cho I-TASK
+địa_chỉ I-TASK
+
+cấu_hình B-TASK
+address-controller I-TASK
+để I-TASK
+sử_dụng I-TASK
+chứng_chỉ I-TASK
+wildcard I-TASK
+cho I-TASK
+route I-TASK
+
+vô_hiệu_hóa B-TASK
+các I-TASK
+đăng_ký I-TASK
+bền_vững I-TASK
+
+
+thêm B-TASK
+hỗ_trợ I-TASK
+kiểm_tra I-TASK
+sống I-TASK
+và I-TASK
+sẵn_sàng I-TASK
+cho I-TASK
+hạ_tầng I-TASK
+dùng_chung I-TASK
+
+thêm B-TASK
+hỗ_trợ I-TASK
+endpoint I-TASK
+TLS I-TASK
+cho I-TASK
+hạ_tầng I-TASK
+dùng_chung I-TASK
+
+cấu_hình B-TASK
+kích_thước I-TASK
+hàng_đợi I-TASK
+tối_đa I-TASK
+cho I-TASK
+không_gian I-TASK
+địa_chỉ I-TASK
+chuẩn I-TASK
+và I-TASK
+brokered I-TASK
+
+sửa B-TASK
+file I-TASK
+plugins.txt I-TASK
+cho I-TASK
+enmase I-TASK
+csb I-TASK
+jenkins I-TASK
+
+viết_lại B-TASK
+hàm I-TASK
+thư_viện I-TASK
+dùng_chung I-TASK
+enmasse I-TASK
+thành I-TASK
+class I-TASK
+
+sử_dụng B-TASK
+class I-TASK
+Enmasse I-TASK
+mới I-TASK
+trong I-TASK
+thư_viện I-TASK
+dùng_chung I-TASK
+cho I-TASK
+pipeline I-TASK
+AMQ I-TASK
+Online/Enmasse I-TASK
+
+cung_cấp B-TASK
+endpoint I-TASK
+messaging I-TASK
+chỉ_đọc I-TASK
+[address I-TASK
+space I-TASK
+facade] I-TASK
+
+mở_rộng B-TASK
+createAddressSpace I-TASK
+để I-TASK
+cho_phép I-TASK
+cấu_hình I-TASK
+endpoint I-TASK
+
+tạo B-TASK
+biểu_đồ I-TASK
+và I-TASK
+lưu_trữ I-TASK
+trong I-TASK
+jenkins I-TASK
+cho I-TASK
+kiểm_thử I-TASK
+mở_rộng/hiệu_năng I-TASK
+
+tài_liệu B-TASK
+nên I-TASK
+ghi_chú I-TASK
+rằng I-TASK
+endpoint I-TASK
+không_thể I-TASK
+thay_đổi I-TASK
+sau I-TASK
+khi I-TASK
+tạo I-TASK
+
+tái_cấu_trúc B-TASK
+mã I-TASK
+và I-TASK
+tạo I-TASK
+các I-TASK
+thành_phần I-TASK
+có_thể I-TASK
+tái_sử_dụng I-TASK
+
+sửa_lại B-TASK
+thụt_lề I-TASK
+spec I-TASK
+loadbalance I-TASK
+
+tạo B-TASK
+cluster I-TASK
+ocp I-TASK
+ngắt_kết_nối I-TASK
+để I-TASK
+kiểm_thử I-TASK
+cài_đặt I-TASK
+offline I-TASK
+
+tạo B-TASK
+automation I-TASK
+để I-TASK
+cấp_phát I-TASK
+cluster I-TASK
+ocp I-TASK
+ngắt_kết_nối I-TASK
+
+khắc_phục B-TASK
+lỗi I-TASK
+null I-TASK
+pointer I-TASK
+exception I-TASK
+của I-TASK
+client I-TASK
+java I-TASK
+external I-TASK
+
+sửa_lỗi B-TASK
+không_ổn_định I-TASK
+của I-TASK
+kiểm_thử I-TASK
+rhea I-TASK
+WS I-TASK
+trên I-TASK
+cluster I-TASK
+AWS I-TASK
+
+thêm B-TASK
+quy_trình I-TASK
+triển_khai I-TASK
+dịch_vụ I-TASK
+xác_thực I-TASK
+chuẩn I-TASK
+cho I-TASK
+HA I-TASK
+vào I-TASK
+tài_liệu I-TASK
+downstream I-TASK
+
+thêm B-TASK
+liên_kết I-TASK
+đến I-TASK
+các I-TASK
+vấn_đề I-TASK
+đã I-TASK
+sửa I-TASK
+của I-TASK
+bản I-TASK
+1.4.2 I-TASK
+vào I-TASK
+ghi_chú I-TASK
+phát_hành I-TASK
+1.4 I-TASK
+
+sửa_lại B-TASK
+tham_chiếu I-TASK
+OpenShift I-TASK
+trong I-TASK
+tài_liệu I-TASK
+kube I-TASK
+cho I-TASK
+console I-TASK
+
+tạo B-TASK
+thành_phần I-TASK
+DropdownWithToggle I-TASK
+tổng_quát I-TASK
+
+tạo B-TASK
+thành_phần I-TASK
+DropdownWithKebabToggle I-TASK
+tổng_quát I-TASK
+
+cập_nhật B-TASK
+dependencies I-TASK
+yarn I-TASK
+
+tái_cấu_trúc B-TASK
+hàm I-TASK
+xóa I-TASK
+địa_chỉ I-TASK
+để I-TASK
+cho_phép I-TASK
+nhiều I-TASK
+mục_tiêu I-TASK
+
+triển_khai B-TASK
+hàm I-TASK
+closeConnections I-TASK
+
+Tạo B-TASK
+thành_phần I-TASK
+MetadataListTable I-TASK
+cho I-TASK
+giao_diện I-TASK
+
+Tạo B-TASK
+thành_phần I-TASK
+ViaGateways I-TASK
+cho I-TASK
+trang I-TASK
+thông_tin I-TASK
+thiết_bị I-TASK
+
+Tạo B-TASK
+giao_diện I-TASK
+xem I-TASK
+Credentials I-TASK
+cho I-TASK
+trang I-TASK
+thông_tin I-TASK
+thiết_bị I-TASK
+
+Xem B-TASK
+thông_tin I-TASK
+thiết_bị I-TASK
+ở I-TASK
+dạng I-TASK
+Json I-TASK
+
+tái_cấu_trúc B-TASK
+mã I-TASK
+cho I-TASK
+Address I-TASK
+Space I-TASK
+
+Tái_cấu_trúc B-TASK
+mã I-TASK
+cho I-TASK
+chi_tiết I-TASK
+Address I-TASK
+Space I-TASK
+
+tích_hợp B-TASK
+đóng_kết_nối I-TASK
+vào I-TASK
+console I-TASK
+
+cảnh_báo B-TASK
+build I-TASK
+từ I-TASK
+các I-TASK
+lần I-TASK
+build I-TASK
+UI I-TASK
+
+kiểm_thử B-TASK
+hình_ảnh I-TASK
+1.4.2 I-TASK
+và I-TASK
+cung_cấp I-TASK
+xác_nhận I-TASK
+
+tạo B-TASK
+container I-TASK
+kiểm_thử I-TASK
+để I-TASK
+chạy I-TASK
+bộ_kiểm_thử I-TASK
+enmasse I-TASK
+trong I-TASK
+delorean I-TASK
+
+tái_cấu_trúc B-TASK
+hàm I-TASK
+xóa I-TASK
+addressspace I-TASK
+và I-TASK
+address I-TASK
+để I-TASK
+nhận I-TASK
+nhiều I-TASK
+mục_tiêu I-TASK
+
+tạo B-TASK
+kiểm_thử I-TASK
+hệ_thống I-TASK
+cho I-TASK
+đóng_kết_nối I-TASK
+
+chỉnh_sửa B-TASK
+luồng I-TASK
+tạo I-TASK
+AddressSpace I-TASK
+để I-TASK
+cho_phép I-TASK
+cấu_hình I-TASK
+endpoint I-TASK
+và I-TASK
+bổ_sung I-TASK
+chi_tiết I-TASK
+endpoint I-TASK
+
+Tạo B-TASK
+thành_phần I-TASK
+Filter I-TASK
+cho I-TASK
+danh_sách I-TASK
+thiết_bị I-TASK
+
+Tạo B-TASK
+giao_diện I-TASK
+nhập I-TASK
+metadata I-TASK
+cho I-TASK
+tạo I-TASK
+thiết_bị I-TASK
+
+Thêm B-TASK
+tính_năng I-TASK
+tự_động I-TASK
+điền I-TASK
+thuộc_tính I-TASK
+trong I-TASK
+metadata I-TASK
+
+Thêm/xóa B-TASK
+anh_chị_em I-TASK
+và I-TASK
+con I-TASK
+trong I-TASK
+metadata I-TASK
+đăng_ký I-TASK
+thiết_bị I-TASK
+
+Tạo B-TASK
+json I-TASK
+theo I-TASK
+mẫu I-TASK
+đăng_ký I-TASK
+thiết_bị I-TASK
+
+Thêm B-TASK
+kiểm_tra I-TASK
+hợp_lệ I-TASK
+cho I-TASK
+cấu_trúc I-TASK
+dữ_liệu I-TASK
+lồng_ghép I-TASK
+
+Nâng_cấp B-TASK
+Artemis I-TASK
+lên I-TASK
+phiên_bản I-TASK
+2.13.0 I-TASK
+

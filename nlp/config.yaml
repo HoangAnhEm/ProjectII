@@ -1,23 +1,28 @@
 project:
-  name: fine_tune_phobert_ner
+  name: PhoberNer
 
-paths:
-  data_raw: data/raw/
-  data_processed: data/processed/
-  model_pretrained: models/pre_trained/
-  model_fine_tuned: models/fine_tuned/
+data_paths:
+  train: ./data/raw/train.txt
+  validation: ./data/raw/valid.txt
+  test: ./data/raw/test.txt
+
+model_paths:
+  fine_tuned: ./model/fine_tuned
 
 training:
-  max_length: 256                 # Độ dài tối đa của câu sau khi tokenize
-  batch_size: 16                  # Batch size cho huấn luyện và đánh giá
-  learning_rate: 2e-5             # Learning rate cho optimizer AdamW
-  num_epochs: 5                   # Số epoch huấn luyện
+  output_dir: ./phobert-ner
+  evaluation_strategy: epoch
+  learning_rate: 0.00001  
+  per_device_train_batch_size: 32
+  per_device_eval_batch_size: 32
+  num_train_epochs: 3
+  weight_decay: 0.01              
 
-labels:
-  - O                             # Không thuộc thực thể nào (Outside)
-  - B-PERSON                     # Bắt đầu thực thể PERSON (Begin)
-  - I-PERSON                     # Tiếp tục thực thể PERSON (Inside)
-  - B-TASK                       # Bắt đầu thực thể TASK (Begin)
-  - I-TASK                       # Tiếp tục thực thể TASK (Inside)
-  - B-DATE                       # Bắt đầu thực thể DATE (Begin)
-  - I-DATE                       # Tiếp tục thực thể DATE (Inside)
+label_map:
+  O: 0
+  B-ASSIGNEE: 1
+  B-TASK: 2
+  B-DEADLINE: 3
+  I-ASSIGNEE: 4
+  I-TASK: 5
+  I-DEADLINE: 6

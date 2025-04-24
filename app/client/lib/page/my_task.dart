@@ -1,21 +1,25 @@
 import 'package:client/layout/user_layout.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/project.dart';
 import '../models/task.dart';
 import '../models/user.dart';
 import '../models/workspace.dart';
+import '../providers/project_provider.dart';
+import '../providers/tokenProvider.dart';
+import '../providers/workspace_provider.dart';
 import '../widgets/navigation_tabs.dart';
 import '../widgets/project_group.dart';
 import '../widgets/toolbar.dart';
 
-class MyTask extends StatefulWidget {
+class MyTask extends ConsumerStatefulWidget {
   const MyTask({Key? key}) : super(key: key);
 
   @override
-  _ListViewScreenState createState() => _ListViewScreenState();
+  ConsumerState<MyTask> createState() => _MyTaskScreenState();
 }
 
-class _ListViewScreenState extends State<MyTask> {
+class _MyTaskScreenState extends ConsumerState<MyTask> {
   int _selectedTabIndex = 2; // List view is selected by default
 
   // Dữ liệu mẫu cho workspace hiện tại
@@ -33,12 +37,13 @@ class _ListViewScreenState extends State<MyTask> {
   void _initSampleData() {
     // Workspace hiện tại
     _currentWorkspace = Workspace(
-      workspaceId: 1,
+      id: "1",
       name: "My Workspace",
       description: "Main workspace for task management",
       isPublic: true,
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
+      members: []
     );
 
     // User hiện tại
@@ -130,7 +135,7 @@ class _ListViewScreenState extends State<MyTask> {
     _projects = [
       Project(
         projectId: 1,
-        workspaceId: _currentWorkspace.workspaceId,
+        workspaceId: 1,
         name: "Project 1",
         description: "First project description",
         status: "active",
@@ -141,7 +146,7 @@ class _ListViewScreenState extends State<MyTask> {
       ),
       Project(
         projectId: 2,
-        workspaceId: _currentWorkspace.workspaceId,
+        workspaceId: 1,
         name: "Project 2",
         description: "Second project description",
         status: "active",
@@ -195,6 +200,9 @@ class _ListViewScreenState extends State<MyTask> {
           TaskToolbar(
             onAddTask: () {
               _showAddTaskDialog(context);
+            },
+            onAddProject: () {
+              _showAddProjectDialog(context);
             },
           ),
 
@@ -397,4 +405,105 @@ class _ListViewScreenState extends State<MyTask> {
       ),
     );
   }
+
+  void _showAddProjectDialog(BuildContext context) {
+    final TextEditingController nameController = TextEditingController();
+    final TextEditingController descController = TextEditingController();
+    String? selectedWorkspaceId; // Thêm biến lưu workspace được chọn (nếu cần)
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Create New Project'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Tên project
+            TextField(
+              controller: nameController,
+              decoration: const InputDecoration(
+                labelText: 'Project Name',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 16),
+
+            // Mô tả
+            TextField(
+              controller: descController,
+              decoration: const InputDecoration(
+                labelText: 'Description',
+                border: OutlineInputBorder(),
+              ),
+              maxLines: 3,
+            ),
+            const SizedBox(height: 16),
+
+            // Dropdown chọn workspace (nếu cần)
+            Consumer(
+              builder: (context, ref, _) {
+                final workspacesAsync = ref.watch(userWorkspacesProvider);
+                return workspacesAsync.when(
+                  loading: () => const CircularProgressIndicator(),
+                  error: (error, stack) => Text('Error: $error'),
+                  data: (workspaces) => DropdownButtonFormField<String>(
+                    decoration: const InputDecoration(
+                      labelText: 'Workspace',
+                      border: OutlineInputBorder(),
+                    ),
+                    value: selectedWorkspaceId,
+                    items: workspaces
+                        .map((workspace) => DropdownMenuItem<String>(
+                      value: workspace.id,
+                      child: Text(workspace.name),
+                    ))
+                        .toList(),
+                    onChanged: (value) => selectedWorkspaceId = value,
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              if (nameController.text.isNotEmpty) {
+                try {
+                  // Tạo project mới
+                  final newProject = {
+                    'name': nameController.text,
+                    'description': descController.text,
+                    'workspaceId': selectedWorkspaceId,
+                    'managerId': '67ffce7468f84e4e6422e84a',
+                  };
+
+                  // Gọi API tạo project
+                  await ref.read(projectServiceProvider).createProject(
+                      ref.read(tokenProvider).value!,
+                      newProject
+                  );
+
+                  // Làm mới danh sách projects
+                  ref.invalidate(userWorkspacesProvider);
+
+                  Navigator.pop(context);
+                } catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Error: $e')),
+                  );
+                }
+              }
+            },
+            child: const Text('Create Project'),
+          ),
+        ],
+      ),
+    );
+  }
+
 }

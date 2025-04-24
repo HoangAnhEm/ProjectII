@@ -9,7 +9,7 @@ import 'workspace_provider.dart';
 final projectServiceProvider = Provider<ProjectService>((ref) => ProjectService());
 
 // Workspace projects provider
-final workspaceProjectsProvider = FutureProvider.family<List<Project>, int>((ref, workspaceId) async {
+final workspaceProjectsProvider = FutureProvider.family<List<Project>, String>((ref, workspaceId) async {
   final projectService = ref.watch(projectServiceProvider);
   final tokenAsync = await ref.watch(tokenProvider.future);
 
@@ -30,7 +30,7 @@ final currentWorkspaceProjectsProvider = FutureProvider<List<Project>>((ref) asy
     return [];
   }
 
-  return projectService.getWorkspaceProjects(tokenAsync, currentWorkspace.workspaceId);
+  return projectService.getWorkspaceProjects(tokenAsync, currentWorkspace.id);
 });
 
 // Single project provider

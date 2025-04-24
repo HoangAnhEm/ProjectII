@@ -1,0 +1,54 @@
+đưa ER3 của RHOM vào sản_phẩm
+soạn tài_liệu về việc tạo và xóa địa_chỉ
+thêm hỗ_trợ kiểm_tra yêu_cầu so với giới_hạn và thiết_lập trạng_thái cho địa_chỉ
+thêm hỗ_trợ cho các chủ_đề đồng_vị_trí
+sử_dụng statefulsets cho các broker
+triển_khai giới_hạn tài_nguyên của gói cho không_gian địa_chỉ
+lưu lại quyết_định về vị_trí đặt hàng_đợi hoặc chủ_đề
+triển_khai yêu_cầu tài_nguyên của gói cho địa_chỉ
+cấu_hình address-controller để sử_dụng chứng_chỉ wildcard cho route
+vô_hiệu_hóa các đăng_ký bền_vững ( có_thể cấu_hình ở upstream )
+thêm hỗ_trợ kiểm_tra sống và sẵn_sàng cho hạ_tầng dùng_chung
+thêm hỗ_trợ endpoint TLS cho hạ_tầng dùng_chung
+cấu_hình kích_thước hàng_đợi tối_đa cho không_gian địa_chỉ chuẩn và brokered
+sửa file plugins.txt cho enmase csb jenkins
+viết_lại hàm thư_viện dùng_chung enmasse thành class
+sử_dụng class Enmasse mới trong thư_viện dùng_chung cho pipeline AMQ Online/Enmasse
+cung_cấp endpoint messaging chỉ_đọc [address space facade]
+mở_rộng createAddressSpace để cho_phép cấu_hình endpoint
+tạo biểu_đồ và lưu_trữ trong jenkins cho kiểm_thử mở_rộng/hiệu_năng
+tài_liệu nên ghi_chú rằng endpoint không_thể thay_đổi sau khi tạo
+tái_cấu_trúc mã và tạo các thành_phần có_thể tái_sử_dụng
+sửa_lại thụt_lề spec loadbalance
+tạo cluster ocp ngắt_kết_nối để kiểm_thử cài_đặt offline
+tạo automation để cấp_phát cluster ocp ngắt_kết_nối
+khắc_phục lỗi null pointer exception của client java external
+sửa_lỗi không_ổn_định của kiểm_thử rhea WS trên cluster AWS
+thêm quy_trình triển_khai dịch_vụ xác_thực chuẩn cho HA vào tài_liệu downstream
+thêm liên_kết đến các vấn_đề đã sửa của bản 1.4.2 vào ghi_chú phát_hành 1.4
+sửa_lại tham_chiếu OpenShift trong tài_liệu kube cho console
+tạo thành_phần DropdownWithToggle tổng_quát
+tạo thành_phần DropdownWithKebabToggle tổng_quát
+cập_nhật dependencies yarn
+tái_cấu_trúc hàm xóa địa_chỉ để cho_phép nhiều mục_tiêu
+triển_khai hàm closeConnections
+Tạo thành_phần MetadataListTable cho giao_diện
+Tạo thành_phần ViaGateways cho trang thông_tin thiết_bị
+Tạo giao_diện xem Credentials cho trang thông_tin thiết_bị
+Xem thông_tin thiết_bị ở dạng Json
+tái_cấu_trúc mã cho Address Space
+Tái_cấu_trúc mã cho chi_tiết Address Space
+tích_hợp đóng_kết_nối vào console
+cảnh_báo build từ các lần build UI
+kiểm_thử hình_ảnh 1.4.2 và cung_cấp xác_nhận
+tạo container kiểm_thử để chạy bộ_kiểm_thử enmasse trong delorean
+tái_cấu_trúc hàm xóa addressspace và address để nhận nhiều mục_tiêu
+tạo kiểm_thử hệ_thống cho đóng_kết_nối
+chỉnh_sửa luồng tạo AddressSpace để cho_phép cấu_hình endpoint và bổ_sung chi_tiết endpoint
+Tạo thành_phần Filter cho danh_sách thiết_bị
+Tạo giao_diện nhập metadata cho tạo thiết_bị
+Thêm tính_năng tự_động điền thuộc_tính trong metadata
+Thêm/xóa anh_chị_em và con trong metadata đăng_ký thiết_bị
+Tạo json theo mẫu đăng_ký thiết_bị
+Thêm kiểm_tra hợp_lệ cho cấu_trúc dữ_liệu lồng_ghép
+Nâng_cấp Artemis lên phiên_bản 2.13.0

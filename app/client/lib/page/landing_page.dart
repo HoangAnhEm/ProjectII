@@ -160,10 +160,12 @@ class LandingPage extends StatelessWidget {
   }
 
   Widget _buildHeroImage() {
-    return Image.network(
-      'https://via.placeholder.com/500x300?text=Task+Management',
-      height: 300,
-    );
+    // return Image.network(
+    //   'https://via.placeholder.com/500x300?text=Task+Management',
+    //   height: 300,
+    // );
+    //TODO: ADD IMAGE
+    return Container();
   }
 
   Widget _buildFeatureCard(IconData icon, String title, String description) {

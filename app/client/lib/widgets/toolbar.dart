@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 
 class TaskToolbar extends StatelessWidget {
   final VoidCallback onAddTask;
+  final VoidCallback onAddProject;
 
   const TaskToolbar({
     Key? key,
     required this.onAddTask,
+    required this.onAddProject,
+
   }) : super(key: key);
 
   @override
@@ -34,8 +37,17 @@ class TaskToolbar extends StatelessWidget {
             foregroundColor: Colors.white,
             child: Text("T"),
           ),
-          SizedBox(width: 8),
-          _buildToolButton(Icons.settings, "Customize"),
+          SizedBox(width: 10,),
+          ElevatedButton.icon(
+            onPressed: onAddProject,
+            icon: Icon(Icons.add, size: 18),
+            label: Text("Add Project"),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.blue,
+              foregroundColor: Colors.white,
+            ),
+          ),
+          SizedBox(width: 10,),
           ElevatedButton.icon(
             onPressed: onAddTask,
             icon: Icon(Icons.add, size: 18),

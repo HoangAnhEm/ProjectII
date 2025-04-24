@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:client/providers/workspace_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SidebarWidget extends StatelessWidget {
+import '../models/workspace.dart';
+
+class SidebarWidget extends ConsumerWidget  {
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currentWorkspace = ref.watch(currentWorkspaceProvider);
+    final workspacesAsync = ref.watch(userWorkspacesProvider);
+
     return Container(
       width: 260,
       color: Colors.black87,
@@ -10,10 +18,17 @@ class SidebarWidget extends StatelessWidget {
         children: [
           SizedBox(height: 16),
           // Logo & Workspace
-          ListTile(
-            leading: CircleAvatar(child: Text('T')),
-            title: Text('Tuan\'s Workspace', style: TextStyle(color: Colors.white)),
-            subtitle: Text('All Tasks', style: TextStyle(color: Colors.white70, fontSize: 12)),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: workspacesAsync.when(
+              loading: () => _buildWorkspaceLoading(),
+              error: (error, stack) => _buildWorkspaceError(),
+              data: (workspaces) => _buildWorkspaceDropdown(
+                ref,
+                workspaces,
+                currentWorkspace,
+              ),
+            ),
           ),
           Divider(color: Colors.white24),
           // Main navigation
@@ -63,6 +78,66 @@ class SidebarWidget extends StatelessWidget {
           ),
           SizedBox(height: 16),
         ],
+      ),
+    );
+  }
+  Widget _buildWorkspaceDropdown(
+      WidgetRef ref,
+      List<Workspace> workspaces,
+      Workspace? currentWorkspace,
+      ) {
+    return DropdownButtonHideUnderline(
+      child: DropdownButton<String>(
+        value: currentWorkspace?.id, // Sử dụng ID
+        isExpanded: true,
+        dropdownColor: Colors.black87,
+        icon: Icon(Icons.arrow_drop_down, color: Colors.white),
+        items: workspaces
+            .map((workspace) => DropdownMenuItem<String>(
+          value: workspace.id, // Sử dụng ID
+          child: ListTile(
+            leading: CircleAvatar(child: Text(workspace.name[0])),
+            title: Text(
+              workspace.name,
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ))
+            .toList(),
+        onChanged: (String? newWorkspaceId) {
+          if (newWorkspaceId != null) {
+            final selectedWorkspace = workspaces.firstWhere(
+                    (workspace) => workspace.id == newWorkspaceId
+            );
+            ref.read(currentWorkspaceProvider.notifier)
+                .setCurrentWorkspace(selectedWorkspace);
+          }
+        },
+        hint: Text(
+          'Select Workspace',
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+    );
+  }
+
+
+  Widget _buildWorkspaceLoading() {
+    return ListTile(
+      leading: CircleAvatar(child: CircularProgressIndicator(color: Colors.white)),
+      title: Text(
+        'Loading...',
+        style: TextStyle(color: Colors.white),
+      ),
+    );
+  }
+
+  Widget _buildWorkspaceError() {
+    return ListTile(
+      leading: Icon(Icons.error, color: Colors.red),
+      title: Text(
+        'Failed to load workspaces',
+        style: TextStyle(color: Colors.red),
       ),
     );
   }
